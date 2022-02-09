@@ -1,0 +1,9 @@
+#This file is for things that are same between prod and dev
+version: "3"
+services:
+  node-app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000      

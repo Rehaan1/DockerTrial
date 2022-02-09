@@ -6,4 +6,21 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - PORT=3000      
+      - PORT=3000
+
+  mongo:
+    # since we will directly use the image and dont
+    # need to add anything to it, so instead of build
+    # we will just use the image which in our case is
+    # mongo
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=test
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      # named volume (name:pathInContainer)
+      # /data/db got from monogo dockers documentation
+      - mongo-db:/data/db
+
+volumes:
+  mongo-db:

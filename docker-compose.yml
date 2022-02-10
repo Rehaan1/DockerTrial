@@ -23,6 +23,9 @@ services:
       # named volume (name:pathInContainer)
       # /data/db got from monogo dockers documentation
       - mongo-db:/data/db
+  
+  redis:
+    image: redis
 
 volumes:
   mongo-db:

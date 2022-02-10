@@ -14,6 +14,8 @@ const postRouter = require("./routes/postRoutes")
 const userRouter = require("./routes/userRoutes")
 const app = express()
 
+app.enable("trust proxy")
+
 app.use(session({
     store: new RedisStore({
         client: redisClient
@@ -24,7 +26,7 @@ app.use(session({
         saveUninitialized: false,
         resave: false,
         httpOnly: true,
-        maxAge: 30000000
+        maxAge: 30000
     }
 }))
 
@@ -47,13 +49,14 @@ connectWithRetry()
 
 
 app.use(express.json())
-app.use("/posts",postRouter)
-app.use("/users",userRouter)
+app.use("/api/v1/posts",postRouter)
+app.use("/api/v1/users",userRouter)
 
 const port = process.env.PORT || 3000
 
-app.get("/",(req,res) =>{
+app.get("/api/v1/",(req,res) =>{
     res.send("<h2>Hi There!!!!! <h2>")
+    console.log("yeah it ran")
 })
 
 app.listen(port, () => console.log(`listening on port ${port}`))

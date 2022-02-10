@@ -1,6 +1,7 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const session = require("express-session")
+const cors = require("cors")
 const redis = require("redis")
 let RedisStore = require("connect-redis")(session)
 const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT, REDIS_URL, SESSION_SECRET, REDIS_PORT } = require("./config/config")
@@ -15,6 +16,8 @@ const userRouter = require("./routes/userRoutes")
 const app = express()
 
 app.enable("trust proxy")
+
+app.use(cors({}))
 
 app.use(session({
     store: new RedisStore({

@@ -15,6 +15,13 @@ services:
       - MONGO_PASSWORD=${MONGO_PASSWORD}
       - SESSION_SECRET=${SESSION_SECRET}
     command: node app.js
+    deploy: #docker swarm configuration for deployment
+      replicas: 8 # no of containers up at a time instance
+      restart_policy:
+        condition: any 
+      update_config:
+        parallelism: 2 # no. of container to update at a time
+        delay: 15s
 
   mongo:
     environment:
